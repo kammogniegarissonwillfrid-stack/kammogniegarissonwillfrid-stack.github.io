@@ -1,179 +1,584 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garisson KAMMOGNIE | AI & Data Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #020617; color: #f8fafc; }
-        .glass { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(12px); }
-        .gradient-text { background: linear-gradient(90deg, #10b981, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        /* Carrousel */
-        .carousel-container { position: relative; overflow: hidden; border-radius: 1.5rem; border: 1px solid #1e293b; background: #0f172a; margin-top: 2rem; }
-        .carousel-track { display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .carousel-item { min-width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(16, 185, 129, 0.2); backdrop-filter: blur(4px); color: white; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: all 0.3s; border: 1px solid rgba(16, 185, 129, 0.3); }
-        .carousel-btn:hover { background: #10b981; scale: 1.1; color: black; }
-        
-        .tech-tag { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); padding: 4px 12px; border-radius: 99px; font-size: 0.75rem; font-weight: 600; }
-        .project-section { animation: fadeIn 1s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Garisson Wilfrid Kammognie | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #080c14;
+      --bg2: #0d1520;
+      --card: #111827;
+      --accent: #00e5a0;
+      --accent2: #0ea5e9;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --border: rgba(255,255,255,0.07);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Syne', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+    .hero {
+      min-height: 100vh; display: grid; place-items: center;
+      background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(0,229,160,0.08) 0%, transparent 70%),
+                  radial-gradient(ellipse 60% 50% at 10% 80%, rgba(14,165,233,0.07) 0%, transparent 60%), var(--bg);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(0,229,160,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,160,0.04) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none;
+    }
+    .hero-inner { max-width: 1100px; width: 100%; padding: 0 2rem; display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: center; }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+    .hero h1 span { color: var(--accent); }
+    .role { font-family: 'Space Mono', monospace; font-size: 0.9rem; color: var(--accent); margin-top: 1rem; letter-spacing: 0.08em; opacity: 0.85; }
+    .hero p { margin-top: 1.5rem; color: var(--muted); font-size: 1.05rem; line-height: 1.7; max-width: 480px; }
+    .hero-btns { display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; }
+    .btn-primary { background: var(--accent); color: #080c14; padding: 0.8rem 1.8rem; border-radius: 10px; font-weight: 700; font-size: 0.9rem; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.2s, box-shadow 0.2s; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,229,160,0.35); }
+    .btn-outline { border: 1.5px solid rgba(255,255,255,0.2); color: var(--text); padding: 0.8rem 1.8rem; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: background 0.2s, border-color 0.2s; }
+    .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.4); }
+    .avatar { width: 260px; height: 260px; border-radius: 24px; object-fit: cover; border: 2px solid var(--accent); box-shadow: 0 0 60px rgba(0,229,160,0.2); }
+
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.8rem; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 2.5rem; }
+
+    .skills-bg { background: var(--bg2); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
+    .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; }
+    .skill-card:hover { border-color: rgba(0,229,160,0.3); transform: translateY(-3px); }
+    .skill-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+    .tag { background: rgba(0,229,160,0.1); color: var(--accent); font-family: 'Space Mono', monospace; font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 6px; }
+
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+    .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
+    .project-card:hover { border-color: rgba(0,229,160,0.3); transform: translateY(-4px); }
+
+    .carousel { position: relative; overflow: hidden; height: 220px; background: #0a101a; }
+    .carousel-track { display: flex; height: 100%; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .carousel-slide { min-width: 100%; height: 100%; position: relative; cursor: zoom-in; }
+    .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .carousel-slide .placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--muted); font-family: 'Space Mono', monospace; font-size: 0.8rem; gap: 0.5rem; background: linear-gradient(135deg, #0d1520 0%, #111827 100%); }
+    .carousel-slide .placeholder i { font-size: 2rem; opacity: 0.3; }
+    .carousel-counter { position: absolute; top: 10px; right: 12px; background: rgba(0,0,0,0.6); font-family: 'Space Mono', monospace; font-size: 0.72rem; color: #fff; padding: 0.2rem 0.6rem; border-radius: 20px; backdrop-filter: blur(4px); z-index: 5; }
+    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.55); border: none; color: #fff; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; z-index: 5; transition: background 0.2s; backdrop-filter: blur(4px); }
+    .carousel-btn:hover { background: rgba(0,229,160,0.6); }
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
+    .carousel-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; z-index: 5; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: background 0.2s, transform 0.2s; }
+    .dot.active { background: var(--accent); transform: scale(1.3); }
+    .carousel[data-count="1"] .carousel-btn, .carousel[data-count="1"] .carousel-dots, .carousel[data-count="1"] .carousel-counter { display: none; }
+
+    .project-info { padding: 1.4rem; }
+    .project-info h3 { font-size: 1.05rem; font-weight: 700; }
+    .project-info p { color: var(--muted); font-size: 0.88rem; margin-top: 0.5rem; line-height: 1.6; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.9rem; }
+
+    /* Pipeline visuel */
+    .pipeline { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0 0.8rem; }
+    .pipeline-step { font-family: 'Space Mono', monospace; font-size: 0.7rem; background: rgba(14,165,233,0.1); color: var(--accent2); padding: 0.25rem 0.7rem; border-radius: 6px; border: 1px solid rgba(14,165,233,0.2); }
+    .pipeline-arrow { color: var(--muted); font-size: 0.8rem; }
+
+    /* Certifications */
+    .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+    .cert-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.4rem; display: flex; align-items: flex-start; gap: 1rem; transition: border-color 0.2s, transform 0.2s; }
+    .cert-card:hover { border-color: rgba(0,229,160,0.3); transform: translateY(-3px); }
+    .cert-icon { width: 42px; height: 42px; border-radius: 10px; background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .cert-info h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .cert-info p { font-size: 0.78rem; color: var(--muted); }
+    .cert-badge { display: inline-block; margin-top: 0.5rem; font-family: 'Space Mono', monospace; font-size: 0.65rem; background: rgba(0,229,160,0.1); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 4px; }
+
+    /* Lightbox */
+    #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; align-items: center; justify-content: center; flex-direction: column; backdrop-filter: blur(6px); }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 90vw; max-height: 82vh; border-radius: 12px; object-fit: contain; box-shadow: 0 0 80px rgba(0,0,0,0.7); }
+    #lightbox-caption { margin-top: 1rem; font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--muted); }
+    #lightbox-close { position: fixed; top: 1.5rem; right: 1.5rem; background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; opacity: 0.7; transition: opacity 0.2s; }
+    #lightbox-close:hover { opacity: 1; }
+
+    footer { background: #04070d; border-top: 1px solid var(--border); text-align: center; padding: 2.5rem 2rem; color: var(--muted); font-size: 0.88rem; }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-inner > div:last-child { display: none; }
+      .hero-btns { justify-content: center; }
+      .pipeline { justify-content: center; }
+    }
+  </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-50 border-b border-slate-800 glass h-16 flex items-center px-8 justify-between">
-        <span class="font-bold text-xl tracking-tighter gradient-text">GK.PORTFOLIO</span>
-        <div class="hidden md:flex space-x-8 text-sm font-medium">
-            <a href="#presentation" class="hover:text-emerald-400 transition">Présentation</a>
-            <a href="#projets" class="hover:text-emerald-400 transition">Projets</a>
-            <a href="#github" class="hover:text-emerald-400 transition">GitHub</a>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="role">// IA & DATA ANALYST • AÉRONAUTIQUE</div>
+      <h1>Garisson<br><span>Wilfrid</span><br>Kammognie</h1>
+      <p>Étudiant passionné par l'IA, l'automatisation et les données. Prêt pour un poste en alternance.</p>
+      <div class="hero-btns">
+        <a href="CV_GARISSON_WILFRID_KAMMOGNIE_FR.pdf" class="btn-primary">
+          <i class="fas fa-download"></i> Télécharger CV
+        </a>
+        <a href="https://github.com/kammogniegarissonwillfrid" target="_blank" class="btn-outline">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </div>
+    </div>
+    <div>
+      <img src="assets/profile.png" alt="Garisson Wilfrid" class="avatar" onerror="this.style.display='none'">
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section>
+  <div class="container">
+    <div class="section-label">// à propos</div>
+    <h2>Qui suis-je ?</h2>
+    <p style="color:var(--muted);font-size:1.05rem;line-height:1.8;max-width:680px;">
+      Deuxième année de Bachelor en Aéronautique (spécialisation IA & Données) à l'IPSA.
+      J'aime transformer des données brutes en solutions concrètes grâce à l'automatisation et à l'IA.
+    </p>
+  </div>
+</section>
+
+<!-- COMPÉTENCES -->
+<section class="skills-bg">
+  <div class="container">
+    <div class="section-label">// compétences</div>
+    <h2>Stack technique</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>🤖 IA & Machine Learning</h3>
+        <div class="skill-tags">
+          <span class="tag">RAG</span><span class="tag">Groq</span>
+          <span class="tag">Prompt Eng.</span><span class="tag">GANs</span><span class="tag">Vision</span>
         </div>
-        <div class="flex items-center gap-4">
-            <a href="CV_2026-04-01_GARISSON WILLFRID_KAMMOGNIE.pdf" download class="hidden md:block text-slate-400 hover:text-white text-sm transition font-medium border border-slate-700 px-4 py-1.5 rounded-lg">
-                <i class="fas fa-file-pdf mr-2"></i>CV PDF
-            </a>
-            <a href="mailto:kammogniegarissonwillfrid@gmail.com" class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2 rounded-full text-sm font-bold transition">Contact</a>
+      </div>
+      <div class="skill-card">
+        <h3>⚙️ DevOps & Outils</h3>
+        <div class="skill-tags">
+          <span class="tag">Python</span><span class="tag">FastAPI</span>
+          <span class="tag">Docker</span><span class="tag">n8n</span><span class="tag">Streamlit</span>
         </div>
-    </nav>
-
-    <header class="pt-40 pb-20 text-center px-6">
-        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
-            Solutions IA & <span class="gradient-text">Automation</span>
-        </h1>
-        <p class="text-xl text-slate-400 max-w-3xl mx-auto italic leading-relaxed">
-            "Transformer la donnée complexe en outils décisionnels simples et automatisés pour l'industrie."
-        </p>
-    </header>
-
-    <section id="presentation" class="max-w-6xl mx-auto px-6 py-20 border-t border-slate-900">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
-                <h2 class="text-emerald-500 font-bold uppercase tracking-widest text-sm">À propos</h2>
-                <p class="text-slate-300 leading-relaxed text-lg">
-                    Étudiant en 2ème année de <strong>Bachelor Aéronautique à l'IPSA</strong>, je fusionne la rigueur de l'ingénierie et la puissance de l'IA pour créer des solutions à forte valeur ajoutée.
-                </p>
-            </div>
-            <div class="p-6 bg-slate-900/30 border border-slate-800 rounded-2xl flex flex-wrap gap-3">
-                <span class="tech-tag">Python (Pandas)</span><span class="tech-tag">RAG</span><span class="tech-tag">FastAPI</span>
-                <span class="tech-tag">Docker</span><span class="tech-tag">n8n</span><span class="tech-tag">Llama 3.3</span>
-                <span class="tech-tag">SQL</span><span class="tech-tag">Prompt Engineering</span>
-            </div>
+      </div>
+      <div class="skill-card">
+        <h3>🗄️ Bases de données</h3>
+        <div class="skill-tags">
+          <span class="tag">SQL</span><span class="tag">SQLite</span><span class="tag">Power BI</span>
         </div>
-    </section>
-
-    <main id="projets" class="max-w-6xl mx-auto px-6 py-20 border-t border-slate-900">
-        
-        <div class="mb-32 project-section">
-            <div class="max-w-4xl">
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="text-orange-500 bg-orange-500/10 p-2 rounded-lg"><i class="fas fa-plane"></i></span>
-                    <h3 class="text-3xl font-bold">Gestion d'Aérodrome & Monitoring</h3>
-                </div>
-                <p class="text-xl text-emerald-400 font-semibold mb-2 italic">
-                    "Optimisation de la gestion opérationnelle et suivi en temps réel des infrastructures aéroportuaires."
-                </p>
-                <p class="text-slate-400 leading-relaxed text-lg">
-                    Conception d'un tableau de bord interactif permettant le monitoring des flux et la visualisation des KPIs critiques. Ce projet démontre ma capacité à structurer des données complexes pour faciliter la prise de décision rapide dans un environnement exigeant.
-                </p>
-            </div>
-            <div class="carousel-container">
-                <button class="carousel-btn left-4" onclick="moveSlide(this, -1)"><i class="fas fa-chevron-left"></i></button>
-                <button class="carousel-btn right-4" onclick="moveSlide(this, 1)"><i class="fas fa-chevron-right"></i></button>
-                <div class="carousel-track">
-                    <img src="assets/AERODROME/capture-1.png" class="carousel-item" alt="Dashboard 1">
-                    <img src="assets/AERODROME/capture-2.png" class="carousel-item" alt="Dashboard 2">
-                    <img src="assets/AERODROME/capture-3.png" class="carousel-item" alt="Dashboard 3">
-                </div>
-            </div>
+      </div>
+      <div class="skill-card">
+        <h3>🔧 Autres</h3>
+        <div class="skill-tags">
+          <span class="tag">Git</span><span class="tag">Google Cloud</span><span class="tag">REST API</span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="mb-32 project-section">
-            <div class="max-w-4xl">
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="text-emerald-500 bg-emerald-500/10 p-2 rounded-lg"><i class="fas fa-brain"></i></span>
-                    <h3 class="text-3xl font-bold">Audit Intelligent (RAG Cosmétique)</h3>
-                </div>
-                <p class="text-xl text-emerald-400 font-semibold mb-2 italic">
-                    "Automatisation de la conformité réglementaire par l'Intelligence Artificielle sémantique."
-                </p>
-                <p class="text-slate-400 leading-relaxed text-lg">
-                    Développement d'un moteur RAG (Retrieval-Augmented Generation) utilisant <strong>TF-IDF</strong> et l'API <strong>Groq (Llama 3.3)</strong> pour analyser 1472 produits. Le système transforme des requêtes en langage naturel en rapports JSON structurés, réduisant drastiquement le temps d'audit.
-                </p>
+<!-- PROJETS EXISTANTS -->
+<section>
+  <div class="container">
+    <div class="section-label">// projets</div>
+    <h2>Mes Projets</h2>
+    <div class="projects-grid">
+
+      <!-- AERODROME -->
+      <div class="project-card">
+        <div class="carousel" id="c1" data-count="3">
+          <div class="carousel-track" id="t1">
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/AERODROME/capture-1.png" alt="Aérodrome dashboard" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>capture-1.png</div>'">
             </div>
-            <div class="carousel-container">
-                <button class="carousel-btn left-4" onclick="moveSlide(this, -1)"><i class="fas fa-chevron-left"></i></button>
-                <button class="carousel-btn right-4" onclick="moveSlide(this, 1)"><i class="fas fa-chevron-right"></i></button>
-                <div class="carousel-track">
-                    <img src="assets/RAG COSMETIQUE/capture-1.png" class="carousel-item" alt="RAG 1">
-                    <img src="assets/RAG COSMETIQUE/capture-2.png" class="carousel-item" alt="RAG 2">
-                    <img src="assets/RAG COSMETIQUE/capture-3.png" class="carousel-item" alt="RAG 3">
-                </div>
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/AERODROME/capture-2.png" alt="Aérodrome API" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>capture-2.png</div>'">
             </div>
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/AERODROME/capture-3.png" alt="Aérodrome KPIs" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>capture-3.png</div>'">
+            </div>
+          </div>
+          <button class="carousel-btn prev" onclick="slide('c1','t1',-1)"><i class="fas fa-chevron-left"></i></button>
+          <button class="carousel-btn next" onclick="slide('c1','t1',1)"><i class="fas fa-chevron-right"></i></button>
+          <div class="carousel-counter" id="counter-c1">1 / 3</div>
+          <div class="carousel-dots" id="dots-c1"></div>
         </div>
-
-        <div class="mb-24 project-section">
-            <div class="max-w-4xl">
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="text-blue-500 bg-blue-500/10 p-2 rounded-lg"><i class="fas fa-bolt"></i></span>
-                    <h3 class="text-3xl font-bold">SmartOps Pipeline</h3>
-                </div>
-                <p class="text-xl text-emerald-400 font-semibold mb-2 italic">
-                    "Orchestration de workflows intelligents et déploiement de micro-services conteneurisés."
-                </p>
-                <p class="text-slate-400 leading-relaxed text-lg">
-                    Mise en place d'un pipeline d'automatisation complet avec <strong>n8n</strong> et <strong>Docker</strong>. Ce projet intègre un micro-service <strong>FastAPI</strong> qui enrichit les flux via un LLM pour générer des recommandations d'actions automatiques et structurées.
-                </p>
-            </div>
-            <div class="carousel-container">
-                <button class="carousel-btn left-4" onclick="moveSlide(this, -1)"><i class="fas fa-chevron-left"></i></button>
-                <button class="carousel-btn right-4" onclick="moveSlide(this, 1)"><i class="fas fa-chevron-right"></i></button>
-                <div class="carousel-track">
-                    <img src="assets/Smartops/capture-1.png" class="carousel-item" alt="SmartOps 1">
-                    <img src="assets/Smartops/capture-2.png" class="carousel-item" alt="SmartOps 2">
-                    <img src="assets/Smartops/capture-3.png" class="carousel-item" alt="SmartOps 3">
-                </div>
-            </div>
+        <div class="project-info">
+          <h3>Système de gestion d'aérodrome</h3>
+          <p>Base de données relationnelle + API FastAPI + Dashboard Streamlit avec authentification et KPIs temps réel.</p>
+          <div class="project-tags">
+            <span class="tag">FastAPI</span><span class="tag">Streamlit</span><span class="tag">SQLite</span>
+          </div>
         </div>
-    </main>
+      </div>
 
-    <section id="github" class="max-w-6xl mx-auto px-6 py-24 border-t border-slate-900 text-center">
-        <div class="bg-slate-900/40 p-12 rounded-[3rem] border border-slate-800">
-            <i class="fab fa-github text-6xl mb-6"></i>
-            <h2 class="text-4xl font-bold mb-6">Open Source & Code</h2>
-            <p class="text-slate-400 mb-10 max-w-xl mx-auto text-lg">
-                Explorez l'architecture de mes projets et mes scripts d'automatisation sur mon profil GitHub.
-            </p>
-            <a href="https://github.com/kammogniegarissonwillfrid-stack" target="_blank" class="inline-flex items-center gap-4 bg-white text-black px-12 py-4 rounded-full font-bold hover:bg-emerald-500 hover:text-white transition-all shadow-2xl">
-                Voir mon GitHub
-                <i class="fas fa-external-link-alt text-sm"></i>
-            </a>
+      <!-- SMARTOPS -->
+      <div class="project-card">
+        <div class="carousel" id="c2" data-count="3">
+          <div class="carousel-track" id="t2">
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/Smartops/capture-1.png" alt="SmartOps pipeline" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>capture-1.png</div>'">
+            </div>
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/Smartops/capture-2.png" alt="SmartOps n8n" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>capture-2.png</div>'">
+            </div>
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/Smartops/capture-3.png" alt="SmartOps Docker" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>capture-3.png</div>'">
+            </div>
+          </div>
+          <button class="carousel-btn prev" onclick="slide('c2','t2',-1)"><i class="fas fa-chevron-left"></i></button>
+          <button class="carousel-btn next" onclick="slide('c2','t2',1)"><i class="fas fa-chevron-right"></i></button>
+          <div class="carousel-counter" id="counter-c2">1 / 3</div>
+          <div class="carousel-dots" id="dots-c2"></div>
         </div>
-    </section>
+        <div class="project-info">
+          <h3>SmartOps Pipeline — Automatisation IA</h3>
+          <p>Pipeline d'automatisation événementielle : n8n orchestre des micro-services FastAPI containerisés sous Docker, connectés à un LLM pour l'analyse en temps réel.</p>
+          <div class="project-tags">
+            <span class="tag">n8n</span><span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">LLM</span>
+          </div>
+        </div>
+      </div>
 
-    <footer class="py-12 text-center text-slate-700 border-t border-slate-900 text-sm">
-        © 2026 Garisson Wilfrid KAMMOGNIE • IPSA Bachelor Aeronautics
-    </footer>
+      <!-- RAG COSMETIQUE -->
+      <div class="project-card">
+        <div class="carousel" id="c3" data-count="3">
+          <div class="carousel-track" id="t3">
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/RAG COSMETIQUE/capture-1.png" alt="RAG interface" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>capture-1.png</div>'">
+            </div>
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/RAG COSMETIQUE/capture-2.png" alt="RAG résultats" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>capture-2.png</div>'">
+            </div>
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/RAG COSMETIQUE/capture-3.png" alt="RAG JSON" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>capture-3.png</div>'">
+            </div>
+          </div>
+          <button class="carousel-btn prev" onclick="slide('c3','t3',-1)"><i class="fas fa-chevron-left"></i></button>
+          <button class="carousel-btn next" onclick="slide('c3','t3',1)"><i class="fas fa-chevron-right"></i></button>
+          <div class="carousel-counter" id="counter-c3">1 / 3</div>
+          <div class="carousel-dots" id="dots-c3"></div>
+        </div>
+        <div class="project-info">
+          <h3>RAG Cosmétiques (1472 produits)</h3>
+          <p>Moteur de recherche sémantique sur 1472 produits. TF-IDF pour la vectorisation, Groq pour la génération, interface Streamlit et rapport JSON structuré.</p>
+          <div class="project-tags">
+            <span class="tag">TF-IDF</span><span class="tag">Streamlit</span><span class="tag">JSON</span>
+          </div>
+        </div>
+      </div>
 
-    <script>
-        function moveSlide(button, direction) {
-            const track = button.parentElement.querySelector('.carousel-track');
-            const items = track.querySelectorAll('.carousel-item');
-            const itemWidth = track.offsetWidth;
-            
-            let currentTransform = track.style.transform ? parseInt(track.style.transform.replace('translateX(', '').replace('px)', '')) : 0;
-            let index = Math.abs(Math.round(currentTransform / itemWidth));
-            
-            index += direction;
-            if (index < 0) index = items.length - 1;
-            if (index >= items.length) index = 0;
-            
-            track.style.transform = `translateX(-${index * itemWidth}px)`;
+    </div>
+  </div>
+</section>
+
+<!-- ══ NOUVEAU — SCORING IA OLIST ══ -->
+<section class="skills-bg">
+  <div class="container">
+    <div class="section-label">// nouveau projet</div>
+    <h2>Scoring Client IA — Olist</h2>
+    <p style="color:var(--muted);font-size:1rem;line-height:1.8;max-width:700px;margin-bottom:1.5rem;">
+      Pipeline d'automatisation complet sur 99 000 clients e-commerce brésiliens.
+      Les données brutes sont enrichies avec de vraies métriques (montant dépensé, historique, taux de livraison),
+      puis scorées par un LLM qui attribue un segment marketing automatiquement.
+    </p>
+    <div class="pipeline">
+      <span class="pipeline-step">📂 CSV Olist</span>
+      <span class="pipeline-arrow">→</span>
+      <span class="pipeline-step">🐍 Python ETL</span>
+      <span class="pipeline-arrow">→</span>
+      <span class="pipeline-step">⚙️ n8n</span>
+      <span class="pipeline-arrow">→</span>
+      <span class="pipeline-step">🤖 Groq LLM</span>
+      <span class="pipeline-arrow">→</span>
+      <span class="pipeline-step">📊 Google Sheets</span>
+    </div>
+    <div class="projects-grid" style="margin-top:1.5rem;">
+      <div class="project-card">
+        <div class="carousel" id="c4" data-count="3">
+          <div class="carousel-track" id="t4">
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/ScoringIA/capture-1.png" alt="Workflow n8n complet" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>Workflow n8n</div>'">
+            </div>
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/ScoringIA/capture-2.png" alt="Données enrichies Olist" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>Données enrichies</div>'">
+            </div>
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/ScoringIA/capture-3.png" alt="Résultats Google Sheets" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>Google Sheets</div>'">
+            </div>
+          </div>
+          <button class="carousel-btn prev" onclick="slide('c4','t4',-1)"><i class="fas fa-chevron-left"></i></button>
+          <button class="carousel-btn next" onclick="slide('c4','t4',1)"><i class="fas fa-chevron-right"></i></button>
+          <div class="carousel-counter" id="counter-c4">1 / 3</div>
+          <div class="carousel-dots" id="dots-c4"></div>
+        </div>
+        <div class="project-info">
+          <h3>Pipeline de Scoring Client Automatisé</h3>
+          <p>Jointure de 3 tables (99K lignes) via Python/Pandas, orchestration n8n, scoring Llama 3.1 via Groq API. Chaque client reçoit un score 0-100 et un segment basé sur ses vraies métriques.</p>
+          <div class="project-tags">
+            <span class="tag">n8n</span><span class="tag">Groq</span><span class="tag">Python</span>
+            <span class="tag">Pandas</span><span class="tag">Google Sheets</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" style="display:flex;flex-direction:column;justify-content:center;padding:2rem;gap:0.8rem;">
+        <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--accent);letter-spacing:0.1em;margin-bottom:0.3rem;">MÉTRIQUES UTILISÉES</div>
+        <div style="display:flex;align-items:flex-start;gap:0.8rem;">
+          <span style="font-size:1.1rem;">💰</span>
+          <div><div style="font-size:0.88rem;font-weight:700;">Montant total dépensé</div><div style="font-size:0.75rem;color:var(--muted);">Jointure order_items → orders → customers</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:0.8rem;">
+          <span style="font-size:1.1rem;">📦</span>
+          <div><div style="font-size:0.88rem;font-weight:700;">Nombre de commandes</div><div style="font-size:0.75rem;color:var(--muted);">Historique complet par customer_id</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:0.8rem;">
+          <span style="font-size:1.1rem;">🚚</span>
+          <div><div style="font-size:0.88rem;font-weight:700;">Taux de livraison réussi</div><div style="font-size:0.75rem;color:var(--muted);">% commandes "delivered" vs total</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:0.8rem;">
+          <span style="font-size:1.1rem;">📅</span>
+          <div><div style="font-size:0.88rem;font-weight:700;">Date dernière commande</div><div style="font-size:0.75rem;color:var(--muted);">Détection clients inactifs (Churn)</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NOUVEAU — POWER BI OLIST ══ -->
+<section>
+  <div class="container">
+    <div class="section-label">// data visualisation</div>
+    <h2>Dashboard Power BI — Olist</h2>
+    <p style="color:var(--muted);font-size:1rem;line-height:1.8;max-width:700px;margin-bottom:2rem;">
+      Dashboard analytique sur 99K commandes (2016–2018). 3 pages thématiques répondant chacune à une vraie
+      question business, construites avec des mesures DAX et un modèle de données en étoile.
+    </p>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="carousel" id="c5" data-count="4">
+          <div class="carousel-track" id="t5">
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/PowerBI/capture-1.png" alt="Page Revenus — CA mensuel et top catégories" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>Page Revenus</div>'">
+            </div>
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/PowerBI/capture-2.png" alt="Page Clients — carte géographique Brésil" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>Page Clients</div>'">
+            </div>
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/PowerBI/capture-3.png" alt="Page Livraison — délai réel vs estimé" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>Page Livraison</div>'">
+            </div>
+            <div class="carousel-slide" onclick="openLightbox(this)">
+              <img src="assets/PowerBI/capture-4.png" alt="Modèle de données en étoile" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-image\'></i>Modèle données</div>'">
+            </div>
+          </div>
+          <button class="carousel-btn prev" onclick="slide('c5','t5',-1)"><i class="fas fa-chevron-left"></i></button>
+          <button class="carousel-btn next" onclick="slide('c5','t5',1)"><i class="fas fa-chevron-right"></i></button>
+          <div class="carousel-counter" id="counter-c5">1 / 4</div>
+          <div class="carousel-dots" id="dots-c5"></div>
+        </div>
+        <div class="project-info">
+          <h3>Power BI — Analyse E-commerce Olist</h3>
+          <p>3 pages analytiques : Revenus (CA par mois, top catégories), Clients (carte géographique Brésil), Livraison (délai réel vs estimé, taux de retard). Mesures DAX personnalisées + dark theme.</p>
+          <div class="project-tags">
+            <span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span><span class="tag">Data Viz</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" style="display:flex;flex-direction:column;justify-content:center;padding:2rem;gap:1rem;">
+        <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--accent);letter-spacing:0.1em;">INSIGHTS CLÉS</div>
+        <div style="background:rgba(0,229,160,0.05);border:1px solid rgba(0,229,160,0.15);border-radius:10px;padding:1rem;">
+          <div style="font-size:1.6rem;font-weight:800;color:var(--accent);">14M R$</div>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:0.2rem;">CA total sur 3 ans • Panier moyen 136 R$</div>
+        </div>
+        <div style="background:rgba(14,165,233,0.05);border:1px solid rgba(14,165,233,0.15);border-radius:10px;padding:1rem;">
+          <div style="font-size:1.6rem;font-weight:800;color:var(--accent2);">97%</div>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:0.2rem;">Taux de livraison • Délai moyen : 12 jours</div>
+        </div>
+        <div style="background:rgba(0,229,160,0.05);border:1px solid rgba(0,229,160,0.15);border-radius:10px;padding:1rem;">
+          <div style="font-size:1.6rem;font-weight:800;color:var(--accent);">−40%</div>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:0.2rem;">Réduction des délais entre 2016 et 2018</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NOUVEAU — CERTIFICATIONS ══ -->
+<section class="skills-bg">
+  <div class="container">
+    <div class="section-label">// certifications</div>
+    <h2>Certifications Kaggle</h2>
+    <p style="color:var(--muted);font-size:1rem;line-height:1.8;max-width:600px;margin-bottom:2rem;">
+      Certifications pratiques validant des compétences concrètes en Data Science et Machine Learning.
+    </p>
+    <div class="certs-grid">
+      <div class="cert-card">
+        <div class="cert-icon">🐍</div>
+        <div class="cert-info">
+          <h4>Python</h4>
+          <p>Syntaxe, structures de données, fonctions, compréhensions</p>
+          <span class="cert-badge">Kaggle • 2025</span>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🐼</div>
+        <div class="cert-info">
+          <h4>Pandas</h4>
+          <p>Manipulation de DataFrames, jointures, agrégations, nettoyage</p>
+          <span class="cert-badge">Kaggle • 2025</span>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🧹</div>
+        <div class="cert-info">
+          <h4>Data Cleaning</h4>
+          <p>Valeurs manquantes, outliers, normalisation des données</p>
+          <span class="cert-badge">Kaggle • 2025</span>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">📊</div>
+        <div class="cert-info">
+          <h4>Data Visualisation</h4>
+          <p>Matplotlib, Seaborn, storytelling avec les données</p>
+          <span class="cert-badge">Kaggle • 2025</span>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🧠</div>
+        <div class="cert-info">
+          <h4>Intro to Machine Learning</h4>
+          <p>Arbres de décision, validation croisée, évaluation de modèles</p>
+          <span class="cert-badge">Kaggle • 2025</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:2rem;">
+      <div class="carousel" id="c6" data-count="3" style="border-radius:16px;height:260px;">
+        <div class="carousel-track" id="t6">
+          <div class="carousel-slide" onclick="openLightbox(this)">
+            <img src="assets/Certifications/capture-1.png" alt="Certification Python Kaggle" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-certificate\'></i>Certificat Python</div>'">
+          </div>
+          <div class="carousel-slide" onclick="openLightbox(this)">
+            <img src="assets/Certifications/capture-2.png" alt="Certification Pandas Kaggle" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-certificate\'></i>Certificat Pandas</div>'">
+          </div>
+          <div class="carousel-slide" onclick="openLightbox(this)">
+            <img src="assets/Certifications/capture-3.png" alt="Certification ML Kaggle" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'><i class=\'fas fa-certificate\'></i>Certificat ML</div>'">
+          </div>
+        </div>
+        <button class="carousel-btn prev" onclick="slide('c6','t6',-1)"><i class="fas fa-chevron-left"></i></button>
+        <button class="carousel-btn next" onclick="slide('c6','t6',1)"><i class="fas fa-chevron-right"></i></button>
+        <div class="carousel-counter" id="counter-c6">1 / 3</div>
+        <div class="carousel-dots" id="dots-c6"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section>
+  <div class="container">
+    <div class="section-label">// formation & expériences</div>
+    <h2>Parcours</h2>
+    <p style="color:var(--muted);">Tout le détail est dans le CV à télécharger ↑</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Garisson Wilfrid Kammognie — Fait avec ❤️</p>
+  <p style="margin-top:0.5rem;">
+    <a href="https://github.com/kammogniegarissonwillfrid">GitHub</a> •
+    <a href="mailto:kammogniegarissonwilfrid@gmail.com">kammogniegarissonwilfrid@gmail.com</a>
+  </p>
+</footer>
+
+<div id="lightbox">
+  <button id="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+  <img id="lightbox-img" src="" alt="">
+  <div id="lightbox-caption"></div>
+</div>
+
+<script>
+  const state = {};
+  function initCarousels() {
+    document.querySelectorAll('.carousel').forEach(car => {
+      const id = car.id;
+      const track = car.querySelector('.carousel-track');
+      const slides = track.querySelectorAll('.carousel-slide');
+      const count = slides.length;
+      car.setAttribute('data-count', count);
+      state[id] = { current: 0, count };
+      const dotsEl = document.getElementById('dots-' + id);
+      if (dotsEl) {
+        dotsEl.innerHTML = '';
+        for (let i = 0; i < count; i++) {
+          const d = document.createElement('span');
+          d.className = 'dot' + (i === 0 ? ' active' : '');
+          d.onclick = () => goTo(id, track, i);
+          dotsEl.appendChild(d);
         }
-    </script>
+      }
+      updateCounter(id, 0, count);
+    });
+  }
+  function slide(carId, trackId, dir) {
+    const s = state[carId];
+    s.current = (s.current + dir + s.count) % s.count;
+    const track = document.getElementById(trackId);
+    goTo(carId, track, s.current);
+  }
+  function goTo(carId, track, index) {
+    state[carId].current = index;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    updateCounter(carId, index, state[carId].count);
+    const dots = document.querySelectorAll('#dots-' + carId + ' .dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+  }
+  function updateCounter(carId, current, count) {
+    const el = document.getElementById('counter-' + carId);
+    if (el) el.textContent = `${current + 1} / ${count}`;
+  }
+  function openLightbox(slide) {
+    const img = slide.querySelector('img');
+    if (!img) return;
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox-caption').textContent = img.alt || '';
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  document.querySelectorAll('.carousel').forEach(car => {
+    let startX = 0;
+    car.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    car.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) {
+        const trackId = car.querySelector('.carousel-track').id;
+        slide(car.id, trackId, dx < 0 ? 1 : -1);
+      }
+    }, { passive: true });
+  });
+  initCarousels();
+</script>
 </body>
 </html>
